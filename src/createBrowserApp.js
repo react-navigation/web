@@ -59,6 +59,7 @@ export default function createBrowserApp(App) {
     _actionEventSubscribers = new Set();
     componentDidMount() {
       setHistoryListener(this._dispatch);
+      this.updateTitle();
       this._actionEventSubscribers.forEach(subscriber =>
         subscriber({
           type: 'action',
@@ -69,6 +70,9 @@ export default function createBrowserApp(App) {
       );
     }
     componentDidUpdate() {
+      this.updateTitle();
+    }
+    updateTitle() {
       const { state } = this._navigation;
       const childKey = state.routes[state.index].key;
       const activeNav = this._navigation.getChildNavigation(childKey);
