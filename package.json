@@ -1,6 +1,6 @@
 {
   "name": "@react-navigation/web",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0-alpha.4",
   "description": "Tools for react-navigation on web browsers and servers",
   "main": "dist/index.js",
   "files": [
