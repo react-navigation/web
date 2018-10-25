@@ -18,7 +18,7 @@ export default function handleServerRequest(
 
   // Prepare top-level navigation prop
   let navigation = null;
-  function getNavigation() {
+  function getCurrentNavigation() {
     return navigation;
   }
 
@@ -28,7 +28,7 @@ export default function handleServerRequest(
     () => {},
     actionSubscribers,
     () => ({}),
-    getNavigation
+    getCurrentNavigation
   );
 
   // Get title from active screen options
