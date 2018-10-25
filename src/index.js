@@ -5,4 +5,7 @@ module.exports = {
   get handleServerRequest() {
     return require('./handleServerRequest').default;
   },
+  get Link() {
+    return require('./Link').default;
+  },
 };
