@@ -68,7 +68,7 @@
   "peerDependencies": {
     "react": "*",
     "react-dom": "*",
-    "@react-navigation/core": "^3.0.0-alpha.8"
+    "@react-navigation/core": "^3.0.0-alpha.13"
   },
   "jest": {
     "preset": "react-native",
