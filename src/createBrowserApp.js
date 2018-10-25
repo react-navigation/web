@@ -2,7 +2,11 @@
 
 import { createBrowserHistory } from 'history';
 import React from 'react';
-import { NavigationActions, getNavigation } from '@react-navigation/core';
+import {
+  NavigationActions,
+  getNavigation,
+  NavigationProvider,
+} from '@react-navigation/core';
 
 /* eslint-disable import/no-commonjs */
 const queryString = require('query-string');
@@ -89,7 +93,11 @@ export default function createBrowserApp(App) {
         () => this.props.screenProps,
         () => this._navigation
       );
-      return <App navigation={this._navigation} />;
+      return (
+        <NavigationProvider value={this._navigation}>
+          <App navigation={this._navigation} />
+        </NavigationProvider>
+      );
     }
     _dispatch = action => {
       const lastState = this.state.nav;

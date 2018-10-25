@@ -14,15 +14,21 @@ export default function handleServerRequest(
   // Get state from reducer
   const navigationState = Router.getStateForAction(navigationAction);
 
-  // Prepare top-level navigation prop
   const actionSubscribers = new Set();
-  const navigation = getNavigation(
+
+  // Prepare top-level navigation prop
+  let navigation = null;
+  function getNavigation() {
+    return navigation;
+  }
+
+  navigation = getNavigation(
     Router,
     navigationState,
     () => {},
     actionSubscribers,
     () => ({}),
-    () => navigation
+    getNavigation
   );
 
   // Get title from active screen options
