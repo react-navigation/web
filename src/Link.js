@@ -20,6 +20,7 @@ class LinkWithNavigation extends Component {
       routeKey,
       navigation,
       action,
+      ...restProps,
     } = this.props;
     const topNavigation = getTopNavigation(navigation);
     const topRouter = topNavigation.router;
@@ -62,6 +63,7 @@ class LinkWithNavigation extends Component {
           navigation.dispatch(navAction);
           e.preventDefault();
         }}
+        {...restProps}
       >
         {children}
       </a>
