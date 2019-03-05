@@ -82,7 +82,9 @@ export default function createBrowserApp(App) {
       const activeNav = this._navigation.getChildNavigation(childKey);
       const opts = App.router.getScreenOptions(activeNav);
       this._title = opts.title || opts.headerTitle;
-      document.title = this._title;
+      if (this._title) {
+        document.title = this._title;
+      }
     }
     render() {
       this._navigation = getNavigation(
