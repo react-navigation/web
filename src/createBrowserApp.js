@@ -62,7 +62,7 @@ export default function createBrowserApp(App) {
     _title = document.title;
     _actionEventSubscribers = new Set();
     componentDidMount() {
-      setHistoryListener(this._dispatch);
+      setHistoryListener(this.dispatch);
       this.updateTitle();
       this._actionEventSubscribers.forEach(subscriber =>
         subscriber({
@@ -88,7 +88,7 @@ export default function createBrowserApp(App) {
       this._navigation = getNavigation(
         App.router,
         this.state.nav,
-        this._dispatch,
+        this.dispatch,
         this._actionEventSubscribers,
         () => this.props.screenProps,
         () => this._navigation
@@ -99,7 +99,7 @@ export default function createBrowserApp(App) {
         </NavigationProvider>
       );
     }
-    _dispatch = action => {
+    dispatch = action => {
       const lastState = this.state.nav;
       const newState = App.router.getStateForAction(action, lastState);
       const dispatchEvents = () =>
