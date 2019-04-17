@@ -40,8 +40,7 @@
   "homepage": "https://github.com/react-navigation/react-navigation-web#readme",
   "dependencies": {
     "history": "^4.7.2",
-    "qs": "^6.7.0",
-    "query-string": "^6.2.0"
+    "qs": "^6.7.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
