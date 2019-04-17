@@ -84,6 +84,13 @@ export default function createBrowserApp(App) {
       this._title = opts.title || opts.headerTitle;
       document.title = this._title;
     }
+
+    _onNavigationStateChange(prevNav, nav, action) {
+      if (typeof this.props.onNavigationStateChange === 'function') {
+        this.props.onNavigationStateChange(prevNav, nav, action);
+      }
+    }
+
     render() {
       this._navigation = getNavigation(
         App.router,
@@ -112,7 +119,10 @@ export default function createBrowserApp(App) {
           })
         );
       if (newState && newState !== lastState) {
-        this.setState({ nav: newState }, dispatchEvents);
+        this.setState({ nav: newState }, () => {
+          this._onNavigationStateChange(lastState, newState, action);
+          dispatchEvents();
+        });
         const pathAndParams =
           App.router.getPathAndParamsForState &&
           App.router.getPathAndParamsForState(newState);
