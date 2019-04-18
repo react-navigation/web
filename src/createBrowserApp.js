@@ -7,9 +7,7 @@ import {
   getNavigation,
   NavigationProvider,
 } from '@react-navigation/core';
-
-/* eslint-disable import/no-commonjs */
-const queryString = require('qs');
+import queryString from 'qs';
 
 const history = createBrowserHistory();
 
