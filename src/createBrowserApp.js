@@ -9,7 +9,6 @@ import {
 } from '@react-navigation/core';
 import queryString from 'qs';
 
-
 const history = createBrowserHistory();
 
 const getPathAndParamsFromLocation = location => {
