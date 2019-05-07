@@ -104,7 +104,7 @@ export default function createBrowserApp(App) {
       );
       return (
         <NavigationProvider value={this._navigation}>
-          <App navigation={this._navigation} />
+          <App {...this.props} navigation={this._navigation} />
         </NavigationProvider>
       );
     }
