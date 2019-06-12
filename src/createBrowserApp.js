@@ -1,6 +1,10 @@
 /* eslint-env browser */
 
-import { createBrowserHistory } from 'history';
+import {
+  createBrowserHistory,
+  createHashHistory,
+  createMemoryHistory,
+} from 'history';
 import React from 'react';
 import {
   NavigationActions,
@@ -10,8 +14,6 @@ import {
 
 /* eslint-disable import/no-commonjs */
 const queryString = require('query-string');
-
-const history = createBrowserHistory();
 
 const getPathAndParamsFromLocation = location => {
   const path = encodeURI(location.pathname.substr(1));
@@ -29,9 +31,28 @@ const matchPathAndParams = (a, b) => {
   return true;
 };
 
-let currentPathAndParams = getPathAndParamsFromLocation(history.location);
+function getHistory(history) {
+  if (typeof history === 'string') {
+    switch (history) {
+      case 'browser':
+        return createBrowserHistory();
+      case 'hash':
+        return createHashHistory();
+      case 'memory':
+        return createMemoryHistory();
+      default:
+        throw new Error(
+          '@react-navigation/web: createBrowserApp() Invalid value for options.history ' +
+            history
+        );
+    }
+  }
+  return history || createBrowserHistory();
+}
 
-export default function createBrowserApp(App) {
+export default function createBrowserApp(App, { history: historyOption } = {}) {
+  const history = getHistory(historyOption);
+  let currentPathAndParams = getPathAndParamsFromLocation(history.location);
   const initAction =
     App.router.getActionForPathAndParams(
       currentPathAndParams.path,
