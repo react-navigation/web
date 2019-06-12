@@ -43,6 +43,8 @@
     "query-string": "^6.2.0"
   },
   "devDependencies": {
+    "@babel/runtime": "^7.4.5",
+    "@react-navigation/core": "^3.4.2",
     "babel-cli": "^6.26.0",
     "babel-jest": "^22.4.1",
     "babel-plugin-transform-class-properties": "^6.13.0",
@@ -66,9 +68,9 @@
     "release-it": "^7.6.1"
   },
   "peerDependencies": {
+    "@react-navigation/core": "^3.0.0-alpha.13",
     "react": "*",
-    "react-dom": "*",
-    "@react-navigation/core": "^3.0.0-alpha.13"
+    "react-dom": "*"
   },
   "jest": {
     "preset": "react-native",
