@@ -15,9 +15,9 @@ import {
 /* eslint-disable import/no-commonjs */
 const queryString = require('query-string');
 
-const getPathAndParamsFromLocation = location => {
+const getPathAndParamsFromLocation = (location, paramsDeSerializer) => {
   const path = encodeURI(location.pathname.substr(1));
-  const params = queryString.parse(location.search);
+  const params = paramsDeSerializer(location.search);
   return { path, params };
 };
 
@@ -50,9 +50,15 @@ function getHistory(history) {
   return history || createBrowserHistory();
 }
 
-export default function createBrowserApp(App, { history: historyOption } = {}) {
+export default function createBrowserApp(
+  App,
+  { history: historyOption, paramsSerializer, paramsDeSerializer } = {
+    paramsSerializer: p => queryString.stringify(p),
+    paramsDeSerializer: p => queryString.parse(p),
+  }
+) {
   const history = getHistory(historyOption);
-  let currentPathAndParams = getPathAndParamsFromLocation(history.location);
+  let currentPathAndParams = getPathAndParamsFromLocation(history.location, paramsDeSerializer);
   const initAction =
     App.router.getActionForPathAndParams(
       currentPathAndParams.path,
@@ -61,7 +67,7 @@ export default function createBrowserApp(App, { history: historyOption } = {}) {
 
   const setHistoryListener = dispatch => {
     history.listen(location => {
-      const pathAndParams = getPathAndParamsFromLocation(location);
+      const pathAndParams = getPathAndParamsFromLocation(location, paramsDeSerializer);
       if (matchPathAndParams(pathAndParams, currentPathAndParams)) {
         return;
       }
@@ -155,7 +161,7 @@ export default function createBrowserApp(App, { history: historyOption } = {}) {
         ) {
           currentPathAndParams = pathAndParams;
           history.push(
-            `/${pathAndParams.path}?${queryString.stringify(
+            `/${pathAndParams.path}?${paramsSerializer(
               pathAndParams.params
             )}`
           );
