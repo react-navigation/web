@@ -11,6 +11,7 @@ import {
   getNavigation,
   NavigationProvider,
 } from '@react-navigation/core';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 /* eslint-disable import/no-commonjs */
 const queryString = require('query-string');
@@ -124,9 +125,11 @@ export default function createBrowserApp(App, { history: historyOption } = {}) {
         () => this._navigation
       );
       return (
-        <NavigationProvider value={this._navigation}>
-          <App {...this.props} navigation={this._navigation} />
-        </NavigationProvider>
+        <SafeAreaProvider>
+          <NavigationProvider value={this._navigation}>
+            <App {...this.props} navigation={this._navigation} />
+          </NavigationProvider>
+        </SafeAreaProvider>
       );
     }
     dispatch = action => {
