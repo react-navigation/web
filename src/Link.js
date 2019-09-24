@@ -19,6 +19,7 @@ class LinkWithNavigation extends Component {
       routeKey,
       navigation,
       action,
+      onClick,
     } = this.props;
     const topNavigation = getTopNavigation(navigation);
     const topRouter = topNavigation.router;
@@ -58,8 +59,13 @@ class LinkWithNavigation extends Component {
       <a
         href={href}
         onClick={e => {
-          navigation.dispatch(navAction);
           e.preventDefault();
+          let onClickResponse = onClick ? onClick(e) : {};
+          if (onClickResponse && onClickResponse.then) {
+            onClickResponse.then(() => {
+              navigation.dispatch(navAction);
+            });
+          } else navigation.dispatch(navAction);
         }}
       >
         {children}
