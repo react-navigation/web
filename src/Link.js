@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { withNavigation, NavigationActions } from '@react-navigation/core';
 import queryString from 'query-string';
 
+const isModifierClickEvent = e =>
+  !!(e.which > 1 || e.shiftKey || e.altKey || e.metaKey || e.ctrlKey);
+
 const getTopNavigation = navigation => {
   const parent = navigation.dangerouslyGetParent();
   if (parent) {
@@ -58,8 +61,10 @@ class LinkWithNavigation extends Component {
       <a
         href={href}
         onClick={e => {
-          navigation.dispatch(navAction);
-          e.preventDefault();
+          if (!isModifierClickEvent(e)) {
+            navigation.dispatch(navAction);
+            e.preventDefault();
+          }
         }}
       >
         {children}
