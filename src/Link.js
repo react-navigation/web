@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withNavigation, NavigationActions } from '@react-navigation/core';
-import queryString from 'query-string';
+import queryString from 'qs';
+
 
 const getTopNavigation = navigation => {
   const parent = navigation.dangerouslyGetParent();
