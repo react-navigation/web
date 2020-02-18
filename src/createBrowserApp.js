@@ -1,15 +1,19 @@
 /* eslint-env browser */
 
-import { createBrowserHistory } from 'history';
+import {
+  createBrowserHistory,
+  createHashHistory,
+  createMemoryHistory,
+} from 'history';
 import React from 'react';
 import {
   NavigationActions,
   getNavigation,
   NavigationProvider,
 } from '@react-navigation/core';
-import queryString from 'qs';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-const history = createBrowserHistory();
+import queryString from 'qs';
 
 const getPathAndParamsFromLocation = location => {
   const path = encodeURI(location.pathname.substr(1));
@@ -27,9 +31,28 @@ const matchPathAndParams = (a, b) => {
   return true;
 };
 
-let currentPathAndParams = getPathAndParamsFromLocation(history.location);
+function getHistory(history) {
+  if (typeof history === 'string') {
+    switch (history) {
+      case 'browser':
+        return createBrowserHistory();
+      case 'hash':
+        return createHashHistory();
+      case 'memory':
+        return createMemoryHistory();
+      default:
+        throw new Error(
+          '@react-navigation/web: createBrowserApp() Invalid value for options.history ' +
+            history
+        );
+    }
+  }
+  return history || createBrowserHistory();
+}
 
-export default function createBrowserApp(App) {
+export default function createBrowserApp(App, { history: historyOption } = {}) {
+  const history = getHistory(historyOption);
+  let currentPathAndParams = getPathAndParamsFromLocation(history.location);
   const initAction =
     App.router.getActionForPathAndParams(
       currentPathAndParams.path,
@@ -101,9 +124,11 @@ export default function createBrowserApp(App) {
         () => this._navigation
       );
       return (
-        <NavigationProvider value={this._navigation}>
-          <App navigation={this._navigation} />
-        </NavigationProvider>
+        <SafeAreaProvider>
+          <NavigationProvider value={this._navigation}>
+            <App {...this.props} navigation={this._navigation} />
+          </NavigationProvider>
+        </SafeAreaProvider>
       );
     }
     dispatch = action => {

@@ -1,3 +1,3 @@
-export const createBrowserApp = require('./createBrowserApp').default;
-export const handleServerRequest = require('./handleServerRequest').default;
-export const Link = require('./Link').default;
+export { default as createBrowserApp } from './createBrowserApp';
+export { default as handleServerRequest } from './handleServerRequest';
+export { default as Link } from './Link';

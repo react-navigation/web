@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withNavigation, NavigationActions } from '@react-navigation/core';
 import queryString from 'qs';
 
+
 const getTopNavigation = navigation => {
   const parent = navigation.dangerouslyGetParent();
   if (parent) {

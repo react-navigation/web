@@ -1,6 +1,6 @@
 {
   "name": "@react-navigation/web",
-  "version": "1.0.0-alpha.7",
+  "version": "2.0.0-alpha.0",
   "description": "Tools for react-navigation on web browsers and servers",
   "main": "dist/index.js",
   "files": [
@@ -43,6 +43,8 @@
     "qs": "^6.7.0"
   },
   "devDependencies": {
+    "@babel/runtime": "^7.4.5",
+    "@react-navigation/core": "^3.4.2",
     "babel-cli": "^6.26.0",
     "babel-jest": "^22.4.1",
     "babel-plugin-transform-class-properties": "^6.13.0",
@@ -62,6 +64,7 @@
     "react": "16.3.1",
     "react-dom": "16.3.1",
     "react-native": "^0.55.4",
+    "react-native-safe-area-context": "^0.3.5",
     "react-test-renderer": "16.3.1",
     "release-it": "^7.6.1",
     "@react-navigation/core": "*"
